@@ -1,3 +1,10 @@
+## [4.1.0] - 2024-10-21
+
+### Added
+- Added support for new `boostLevel` prop, allowing the disabling of the underlying encoder's default of automatically boosting the ECL. (#374)
+- Added support for accepting an array of strings for `value`, which enables encoding of each part into independent segments. (#374)
+
+
 ## [3.2.0] - 2024-08-31
 
 ### Fixed
