@@ -30,8 +30,7 @@ function FullDemo() {
 
   function makeExampleCode(componentName: string) {
     const imageSettingsCode = includeImage
-      ? `
-  imageSettings={{
+      ? `imageSettings={{
     src: "${imageSrc}",
     x: ${centerImage ? 'undefined' : imageX},
     y: ${centerImage ? 'undefined' : imageY},
@@ -40,25 +39,24 @@ function FullDemo() {
     opacity: ${imageOpacity},
     excavate: ${imageExcavate},
   }}`
-      : '';
-    const minVersionCode =
-      minVersion > 1
-        ? `minVersion={${minVersion}}
-`
-        : '';
-    const boostLevelCode = !boostLevel
-      ? `boostLevel={${boostLevel}}
-`
-      : '';
+      : undefined;
+    const propLines = [
+      `value={"${value}"}`,
+      `title={"${title}"}`,
+      `size={${size}}`,
+      `bgColor={"${bgColor}"}`,
+      `fgColor={"${fgColor}"}`,
+      `level={"${level}"}`,
+      minVersion > 1 ? `minVersion={${minVersion}}` : undefined,
+      !boostLevel ? `boostLevel={${boostLevel}}` : undefined,
+      marginSize !== 0 ? `marginSize={${marginSize}}` : undefined,
+      imageSettingsCode,
+    ]
+      .filter(Boolean)
+      .join('\n  ');
     return `import {${componentName}} from 'qrcode.react';
 <${componentName}
-  value={"${value}"}
-  title={"${title}"}
-  size={${size}}
-  bgColor={"${bgColor}"}
-  fgColor={"${fgColor}"}
-  level={"${level}"}
-  ${minVersionCode}${boostLevelCode}marginSize={${marginSize}}${imageSettingsCode}
+  ${propLines}
 />`;
   }
   const svgCode = makeExampleCode('QRCodeSVG');
@@ -71,9 +69,9 @@ function FullDemo() {
     fgColor,
     bgColor,
     level,
-    marginSize,
-    minVersion,
-    boostLevel,
+    marginSize: marginSize > 0 ? marginSize : undefined,
+    minVersion: minVersion > 1 ? minVersion : undefined,
+    boostLevel: !boostLevel || undefined,
     imageSettings: includeImage
       ? {
           src: imageSrc,
