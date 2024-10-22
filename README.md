@@ -161,9 +161,9 @@ type QRProps = {
 
 The value to encode into the QR Code. See [Encoding Mode](#encoding-mode) for additional details.
 
-| Type                | Default Value |
-| ------------------- | ------------- |
-| `string \| string[]` | —            |
+| Type                 | Default Value |
+| -------------------- | ------------- |
+| `string \| string[]` | —             |
 
 ### `size`
 
@@ -332,7 +332,7 @@ The `cross-origin` value to use when loading the embedded image. Note that `unde
 
 ## Encoding Mode
 
-`qrcode.react` supports encoding text only, in a single segment. The encoding library being used does minimal detection to determine if the text being encoded can follow an optimized path for Numeric or Alphanumeric modes, allowing for more data to be encoded. Otherwise, it will encode following Byte mode. This mode includes supports multi-byte Unicode characters such as Kanji, however it does not support the optimized Kanji encoding mode.
+`qrcode.react` supports encoding text only. Prior to v4.1.0, this was done in a single segment. Since then, the `value` prop can be an array of strings. Each member will be encoded separately. The encoding library being used does minimal detection to determine if each segment being encoded can follow an optimized path for Numeric or Alphanumeric modes, allowing for more data to be encoded. Otherwise, it will encode following Byte mode. This mode includes supports multi-byte Unicode characters such as Kanji, however it does not support the optimized Kanji encoding mode.
 
 ## LICENSE
 
