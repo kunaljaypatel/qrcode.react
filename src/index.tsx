@@ -96,6 +96,8 @@ type QRProps = {
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/color_value
    * @defaultValue #000000
    */
+  bgColorGradient?: boolean;
+
   fgColor?: string;
   /**
    * Whether or not a margin of 4 modules should be rendered as a part of the
@@ -355,6 +357,7 @@ const QRCodeCanvas = React.forwardRef<HTMLCanvasElement, QRPropsCanvas>(
       fgColor = DEFAULT_FGCOLOR,
       includeMargin = DEFAULT_INCLUDEMARGIN,
       minVersion = DEFAULT_MINVERSION,
+      bgGradientColor,
       boostLevel,
       marginSize,
       imageSettings,
@@ -434,8 +437,17 @@ const QRCodeCanvas = React.forwardRef<HTMLCanvasElement, QRPropsCanvas>(
         ctx.scale(scale, scale);
 
         // Draw solid background, only paint dark modules.
-        ctx.fillStyle = bgColor;
-        ctx.fillRect(0, 0, numCells, numCells);
+        if (bgColorGradient) {
+          const grd = ctx.createLinearGradient(0, 0, numCells, numCells);
+          grd.addColorStop(0, "#FF4F83");
+          grd.addColorStop(1, "#ff644f");
+          ctx.fillStyle = grd;
+          ctx.fillRect(0, 0, numCells, numCells);
+        } else {
+          ctx.fillStyle = bgColor;
+          ctx.fillRect(0, 0, numCells, numCells);
+        }
+
 
         ctx.fillStyle = fgColor;
         if (SUPPORTS_PATH2D) {
