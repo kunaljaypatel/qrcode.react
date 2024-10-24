@@ -33,7 +33,7 @@
     "prepack": "make clean && make all && pnpm run typecheck",
     "prepublish-docs": "make clean && make all",
     "publish-docs": "gh-pages --dist=examples --src='{index.html,iife/demo.js}'",
-    "postinstall": "tsc --outDir ./build"
+    "postinstall": "tsc --outDir ./build",
     "test": "jest",
     "typecheck": "tsc --noEmit"
   },
